@@ -53,7 +53,6 @@ jobs:
             echo "Tag ${{ steps.check_tag.outputs.tag }} exists in fork"
             echo "exists=true" >> $GITHUB_ENV
           else
-            echo "Tag ${{ steps.check_tag.outputs.tag }} does not exist in fork"
             echo "exists=false" >> $GITHUB_ENV
           fi
 
@@ -63,7 +62,7 @@ jobs:
           NEW_TAG=${{ steps.check_tag.outputs.tag }}
           CLEAN_TAG="${NEW_TAG#v}"
           git checkout main
-          sed -i "s/ARG VERSION=.*/ARG VERSION=$CLEAN_TAG/" ./Dockerfile
+          sed -i "s/ENV VERSION=.*/ENV VERSION=$CLEAN_TAG/" ./Dockerfile
           git add ./Dockerfile
           git commit -m "Update Dockerfile to use version $CLEAN_TAG"
           git push origin main
