@@ -1,12 +1,13 @@
 # Build Stage
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG TARGETARCH
-ENV VERSION=1.0.2
+ENV VERSION=1.0.0
 RUN apt-get update && apt-get install -y wget unzip
 WORKDIR /build
 RUN wget https://github.com/iPromKnight/zilean/archive/refs/tags/v${VERSION}.zip -O zilean.zip \
     && unzip zilean.zip -d . \
     && mv zilean-${VERSION}/* . \
+    && mv zilean-${VERSION}/.[!.]* . || true \
     && rmdir zilean-${VERSION}
 WORKDIR /build/src/Zilean.ApiService
 RUN dotnet publish -c Release -o /build/out -r linux-$TARGETARCH --self-contained false
