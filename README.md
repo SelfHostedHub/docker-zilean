@@ -13,5 +13,8 @@ services:
     ports:
       - "8181:8181"
     volumes:
-      - ./data:/app/data
+      -  zilean_data:/app/data
+
+volumes:
+  zilean_data:
 ```
