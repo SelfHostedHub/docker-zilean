@@ -1,7 +1,6 @@
-# Build Stage
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0-alpine3.19 AS build
 ARG TARGETARCH
-ENV VERSION=1.3.0
+ENV VERSION=1.2.0
 RUN apt-get update && apt-get install -y wget unzip
 WORKDIR /build
 RUN wget https://github.com/iPromKnight/zilean/archive/refs/tags/v${VERSION}.zip -O zilean.zip \
@@ -16,7 +15,6 @@ WORKDIR /build/src/Zilean.DmmScraper
 RUN dotnet restore -a $TARGETARCH
 RUN dotnet publish -c Release --no-restore -o /build/out -a $TARGETARCH
 
-# Run Stage
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine3.19
 
 RUN apk add --update --no-cache  \
