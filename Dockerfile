@@ -1,6 +1,6 @@
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0-alpine3.19 AS build
 ARG TARGETARCH
-ENV VERSION=1.5.3
+ENV VERSION=2.0.0
 RUN apt-get update && apt-get install -y wget unzip
 WORKDIR /build
 RUN wget https://github.com/iPromKnight/zilean/archive/refs/tags/v${VERSION}.zip -O zilean.zip \
